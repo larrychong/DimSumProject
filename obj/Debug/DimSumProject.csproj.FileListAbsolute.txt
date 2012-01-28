@@ -1,0 +1,22 @@
+C:\Users\Odin\Desktop\New folder (3)\com_port_terminal_cs\bin\Debug\COM Port Terminal.exe.config
+C:\Users\Odin\Desktop\New folder (3)\com_port_terminal_cs\bin\Debug\COM Port Terminal.exe
+C:\Users\Odin\Desktop\New folder (3)\com_port_terminal_cs\bin\Debug\COM Port Terminal.pdb
+C:\Users\Odin\Desktop\New folder (3)\com_port_terminal_cs\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Odin\Desktop\New folder (3)\com_port_terminal_cs\obj\Debug\COMPortTerminal.MainForm.resources
+C:\Users\Odin\Desktop\New folder (3)\com_port_terminal_cs\obj\Debug\COMPortTerminal.PortSettingsDialog.resources
+C:\Users\Odin\Desktop\New folder (3)\com_port_terminal_cs\obj\Debug\COMPortTerminal.Properties.Resources.resources
+C:\Users\Odin\Desktop\New folder (3)\com_port_terminal_cs\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\Odin\Desktop\New folder (3)\com_port_terminal_cs\obj\Debug\GenerateResource.write.1.tlog
+C:\Users\Odin\Desktop\New folder (3)\com_port_terminal_cs\obj\Debug\COM Port Terminal.exe
+C:\Users\Odin\Desktop\New folder (3)\com_port_terminal_cs\obj\Debug\COM Port Terminal.pdb
+C:\Users\Odin\DimSumProject\bin\Debug\COM Port Terminal.exe.config
+C:\Users\Odin\DimSumProject\obj\Debug\COM Port Terminal.exe
+C:\Users\Odin\DimSumProject\obj\Debug\COM Port Terminal.pdb
+C:\Users\Odin\DimSumProject\bin\Debug\COM Port Terminal.exe
+C:\Users\Odin\DimSumProject\bin\Debug\COM Port Terminal.pdb
+C:\Users\Odin\DimSumProject\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Odin\DimSumProject\obj\Debug\COMPortTerminal.MainForm.resources
+C:\Users\Odin\DimSumProject\obj\Debug\COMPortTerminal.PortSettingsDialog.resources
+C:\Users\Odin\DimSumProject\obj\Debug\COMPortTerminal.Properties.Resources.resources
+C:\Users\Odin\DimSumProject\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\Odin\DimSumProject\obj\Debug\GenerateResource.write.1.tlog
