@@ -70,7 +70,7 @@ namespace COMPortTerminal
                                 {
                                     DimSumSizes DSSmall = new DimSumSizes(DimSumSizes.eSize.eSmall, quantity);
                                     rtbMonitor.AppendText(DSSmall.getQuantity() + "\t" + DSSmall.getSizeString()
-                                                            + "\t" + DSSmall.getPrice() + "\n");
+                                                            + "\t\t" + DSSmall.getPrice() + "\n");
                                     stack.Push(DSSmall);
                                 }
                                 else if (str_rfid.Contains("4800E50372DC"))
@@ -85,7 +85,7 @@ namespace COMPortTerminal
                                     DimSumSizes DSLarge = new DimSumSizes(DimSumSizes.eSize.eLarge, quantity);
                                     //probably don't need this line
                                     rtbMonitor.AppendText(DSLarge.getQuantity() + "\t" + DSLarge.getSizeString() 
-                                                            + "\t" + DSLarge.getPrice() + "\n");
+                                                            + "\t\t" + DSLarge.getPrice() + "\n");
                                     stack.Push(DSLarge);
                                 }
                                 else
@@ -164,12 +164,12 @@ namespace COMPortTerminal
                         //calcaulate total here
                         foreach (DimSumSizes size in stack)
                         {
-                            bill_total += size.getPrice();
+                            bill_total += size.getQuantity() * size.getPrice();
                             item_total += size.getQuantity();
                         }
                         Console.WriteLine("TOTAL: " + bill_total);
                         Console.WriteLine("Total Item: " + item_total);
-                        totalSum.Text = "Total: " + bill_total + "\n" + "Total # of Items: " + item_total;
+                        totalSum.Text = "Total: $" + bill_total + "\n" + "Total # of Items: " + item_total;
                     }
                     // Return to the default color.
                     rtbMonitor.SelectionColor = colorTransmit; 

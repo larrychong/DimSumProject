@@ -57,7 +57,7 @@ namespace COMPortTerminal
             this.rtbMonitor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtbMonitor.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbMonitor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbMonitor.Location = new System.Drawing.Point(18, 44);
             this.rtbMonitor.Name = "rtbMonitor";
             this.rtbMonitor.Size = new System.Drawing.Size(457, 329);
@@ -193,7 +193,7 @@ namespace COMPortTerminal
             this.NumPad7.AutoSize = true;
             this.NumPad7.BackColor = System.Drawing.Color.White;
             this.NumPad7.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumPad7.Location = new System.Drawing.Point(544, 233);
+            this.NumPad7.Location = new System.Drawing.Point(544, 235);
             this.NumPad7.Name = "NumPad7";
             this.NumPad7.Size = new System.Drawing.Size(43, 46);
             this.NumPad7.TabIndex = 18;
@@ -227,10 +227,10 @@ namespace COMPortTerminal
             // totalSum
             // 
             this.totalSum.AutoSize = true;
-            this.totalSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalSum.Location = new System.Drawing.Point(528, 337);
             this.totalSum.Name = "totalSum";
-            this.totalSum.Size = new System.Drawing.Size(0, 61);
+            this.totalSum.Size = new System.Drawing.Size(0, 46);
             this.totalSum.TabIndex = 21;
             // 
             // clientAppLabel
