@@ -20,3 +20,14 @@ C:\Users\Odin\DimSumProject\obj\Debug\COMPortTerminal.PortSettingsDialog.resourc
 C:\Users\Odin\DimSumProject\obj\Debug\COMPortTerminal.Properties.Resources.resources
 C:\Users\Odin\DimSumProject\obj\Debug\GenerateResource.read.1.tlog
 C:\Users\Odin\DimSumProject\obj\Debug\GenerateResource.write.1.tlog
+C:\Users\Yashou\DimSumProject\bin\Debug\COM Port Terminal.exe
+C:\Users\Yashou\DimSumProject\bin\Debug\COM Port Terminal.exe.config
+C:\Users\Yashou\DimSumProject\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Yashou\DimSumProject\obj\Debug\COMPortTerminal.MainForm.resources
+C:\Users\Yashou\DimSumProject\obj\Debug\COMPortTerminal.PortSettingsDialog.resources
+C:\Users\Yashou\DimSumProject\obj\Debug\COMPortTerminal.Properties.Resources.resources
+C:\Users\Yashou\DimSumProject\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\Yashou\DimSumProject\obj\Debug\GenerateResource.write.1.tlog
+C:\Users\Yashou\DimSumProject\obj\Debug\COM Port Terminal.exe
+C:\Users\Yashou\DimSumProject\obj\Debug\COM Port Terminal.pdb
+C:\Users\Yashou\DimSumProject\bin\Debug\COM Port Terminal.pdb

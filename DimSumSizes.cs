@@ -7,18 +7,18 @@ namespace COMPortTerminal
 {
     class DimSumSizes
     {
-        public enum eSize {eNull,eSmall,eMedium,eLarge};
+        public enum eSize { eNull, eSmall, eMedium, eLarge };
         private eSize ds_size;
         private double ds_price;
         private int quantity;
         private string text;
 
         //constructor
-        public DimSumSizes():this(eSize.eNull){}
-        public DimSumSizes (eSize size): this (size, 1){}
+        public DimSumSizes() : this(eSize.eNull) { }
+        public DimSumSizes(eSize size) : this(size, 1) { }
         public DimSumSizes(eSize size, int quantity)
         {
-            this.quantity= quantity;
+            this.quantity = quantity;
             ds_size = size;
             switch (size)
             {
@@ -58,7 +58,7 @@ namespace COMPortTerminal
         {
             return ds_price;
         }
-        public int getQuantity ()
+        public int getQuantity()
         {
             return quantity;
         }
