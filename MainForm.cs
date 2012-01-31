@@ -5,12 +5,21 @@ using System.IO.Ports;
 using System.Windows.Forms;
 using COMPortTerminal.Properties;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace COMPortTerminal
 {   
 
     public partial class MainForm  
-    { 
+    {
+        private string str_rfid = "";
+        private int quantity=0;
+        private enum eMode { eOperational, eCancel };
+        private eMode mode = eMode.eOperational;
+        //stack use to delete the most previous one? Or do we not need it
+        private Stack<DimSumSizes> stack = new Stack<DimSumSizes>();
+        private Stack<DimSumSizes> temp_stack = new Stack<DimSumSizes>();
+
         public MainForm() 
         { 
             InitializeComponent();if (transDefaultFormMainForm == null)	transDefaultFormMainForm = this;
@@ -32,7 +41,7 @@ namespace COMPortTerminal
         private delegate void AccessFormMarshalDelegate( string action, string textToAdd, Color textColor );
             
         private Color colorReceive = Color.Green;
-        private Color colorTransmit = Color.Red;
+        private Color colorTransmit = Color.Black;
         private int maximumTextBoxLength;
         private string receiveBuffer;
         private bool savedOpenPortOnStartup;
@@ -40,17 +49,115 @@ namespace COMPortTerminal
 
         private void AccessForm( string action, string formText, Color textColor ) 
         {
-
             switch ( action ) 
             {
                 case "AppendToMonitorTextBox":
                     
                     //  Append text to the rtbMonitor textbox using the color for received data.
 
-                    rtbMonitor.AppendText( formText );
+                    //rtbMonitor.AppendText(formText);
+                    str_rfid += formText;
 
+                    if (str_rfid.Length >= 10)
+                    {
+                        switch (mode)
+                        {
+                            //operational mode
+                            case eMode.eOperational:
+                                if (str_rfid.Contains("4B00DA17F573"))
+                                {
+
+                                    rtbMonitor.AppendText("small\n");
+                                    DimSumSizes DSSmall = new DimSumSizes(DimSumSizes.eSize.eSmall, quantity);
+                                    rtbMonitor.AppendText(DSSmall.getQuantity() + "\t" + DSSmall.getSizeString()
+                                                            + "\t" + DSSmall.getPrice() + "\n");
+                                    stack.Push(DSSmall);
+                                }
+                                else if (str_rfid.Contains("4800E50372DC"))
+                                {
+                                    DimSumSizes DSMedium = new DimSumSizes(DimSumSizes.eSize.eMedium, quantity);
+                                    rtbMonitor.AppendText(DSMedium.getQuantity() + "\t" + DSMedium.getSizeString()
+                                                            + "\t" + DSMedium.getPrice() + "\n");
+                                    stack.Push(DSMedium);
+                                }
+                                else if (str_rfid.Contains("4B00DA60DB2A"))
+                                {
+                                    DimSumSizes DSLarge = new DimSumSizes(DimSumSizes.eSize.eLarge, quantity);
+                                    //probably don't need this line
+                                    rtbMonitor.AppendText(DSLarge.getQuantity() + "\t" + DSLarge.getSizeString() 
+                                                            + "\t" + DSLarge.getPrice() + "\n");
+                                    stack.Push(DSLarge);
+                                }
+                                else
+                                {
+                                    DisplayStatus("Invalid Card. Please scan again.\n", textColor);
+                                }
+                                break;
+
+                            //cancel mode
+                            case eMode.eCancel:
+                                rtbMonitor.Clear();
+                                if (str_rfid.Contains("4B00DA17F573"))
+                                {
+                                    if (stack.Count != 0)
+                                    {
+                                        foreach (DimSumSizes size in stack)
+                                        {
+                                            if (size.getSize() != DimSumSizes.eSize.eSmall)
+                                            {
+                                                temp_stack.Push(stack.Pop());
+                                            }
+                                            else
+                                            {
+                                                // push back all the stuff back into the main one
+                                                if (temp_stack.Count != 0)
+                                                {
+                                                    foreach (DimSumSizes temp in temp_stack)
+                                                    {
+                                                        stack.Push(temp_stack.Pop());
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    //small
+                                    // keep popping value and putting it into another stack
+                                    // until you hit a small and push everything back in?
+                                    // call a function to update display when queue updates.
+                                    
+                                    //question: how the hell we gonna dispaly this if we send the stack tot he amanger side...
+                                    //it'll be upside down -.-" (reversing the stack seems dumb too)
+                                }
+                                else if (str_rfid.Contains("4800E50372DC"))
+                                {
+                                    //medium
+                                }
+                                else if (str_rfid.Contains("4B00DA60DB2A"))
+                                {
+                                    //large
+                                }
+                                else
+                                {
+                                    DisplayStatus("Invalid Card. Please scan again.\n", textColor);
+                                    return;
+                                }
+                                //display new thing
+                                //hopefully this doesn't reverse the order hahah...
+                                DimSumSizes[] list_of_items = stack.ToArray();
+                                foreach (DimSumSizes size in list_of_items)
+                                {
+                                    rtbMonitor.AppendText(size.getQuantity() + "\t" + size.getSizeString()
+                                                    + "\t" + size.getPrice() + "\n");
+                                }
+                                break;
+                            default:
+                                Console.WriteLine("INVALID MODE");
+                                break;
+                        }
+                        //reset text
+                        str_rfid = "";  
+                    }
                     // Return to the default color.
-                    
                     rtbMonitor.SelectionColor = colorTransmit; 
                     
                     //  Trim the textbox's contents if needed.
@@ -65,15 +172,14 @@ namespace COMPortTerminal
                     
                     //  Add text to the rtbStatus textbox using the specified color.
                     
-                    DisplayStatus( formText, textColor ); 
-                    
+                    DisplayStatus( formText, textColor );
                     break;
 
                 case "DisplayCurrentSettings":
                     
                     //  Display the current port settings in the ToolStripStatusLabel.
                     
-                    DisplayCurrentSettings(); 
+                    DisplayCurrentSettings();
                     
                     break;
 
@@ -160,7 +266,8 @@ namespace COMPortTerminal
         private void DisplayStatus( string status, Color textColor ) 
         {             
             rtbStatus.ForeColor = textColor; 
-            rtbStatus.Text = status;            
+            rtbStatus.Text = status;
+            System.Console.Out.WriteLine(status);
         } 
 
         /// <summary>
@@ -491,6 +598,24 @@ namespace COMPortTerminal
         		return transDefaultFormMainForm;
         	} 
         }
+
+        private void cancelText_Click(object sender, EventArgs e)
+        {
+            if (cancelText.ForeColor == Color.Maroon)
+            {
+                cancelText.ForeColor = Color.White;
+                cancelText.BackColor = Color.Maroon;
+                mode = eMode.eCancel;
+            }
+            else
+            {
+                cancelText.ForeColor = Color.Maroon;
+                cancelText.BackColor = Color.White;
+                mode = eMode.eOperational;
+            }
+        }
+
+
 
     }   
 } 

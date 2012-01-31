@@ -38,6 +38,7 @@ namespace COMPortTerminal
             this.btnPort = new System.Windows.Forms.Button();
             this.btnOpenOrClosePort = new System.Windows.Forms.Button();
             this.tmrLookForPortChanges = new System.Windows.Forms.Timer(this.components);
+            this.cancelText = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // rtbMonitor
@@ -48,7 +49,7 @@ namespace COMPortTerminal
             this.rtbMonitor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbMonitor.Location = new System.Drawing.Point(24, 44);
             this.rtbMonitor.Name = "rtbMonitor";
-            this.rtbMonitor.Size = new System.Drawing.Size(426, 329);
+            this.rtbMonitor.Size = new System.Drawing.Size(434, 329);
             this.rtbMonitor.TabIndex = 7;
             this.rtbMonitor.Text = "";
             // 
@@ -63,7 +64,7 @@ namespace COMPortTerminal
             this.rtbStatus.Margin = new System.Windows.Forms.Padding(5);
             this.rtbStatus.Name = "rtbStatus";
             this.rtbStatus.ReadOnly = true;
-            this.rtbStatus.Size = new System.Drawing.Size(453, 50);
+            this.rtbStatus.Size = new System.Drawing.Size(710, 50);
             this.rtbStatus.TabIndex = 8;
             this.rtbStatus.Text = "";
             // 
@@ -91,11 +92,25 @@ namespace COMPortTerminal
             // 
             this.tmrLookForPortChanges.Interval = 1000;
             // 
+            // cancelText
+            // 
+            this.cancelText.AutoSize = true;
+            this.cancelText.BackColor = System.Drawing.Color.White;
+            this.cancelText.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancelText.ForeColor = System.Drawing.Color.Maroon;
+            this.cancelText.Location = new System.Drawing.Point(528, 44);
+            this.cancelText.Name = "cancelText";
+            this.cancelText.Size = new System.Drawing.Size(196, 61);
+            this.cancelText.TabIndex = 12;
+            this.cancelText.Text = "Cancel";
+            this.cancelText.Click += new System.EventHandler(this.cancelText_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(487, 523);
+            this.ClientSize = new System.Drawing.Size(833, 523);
+            this.Controls.Add(this.cancelText);
             this.Controls.Add(this.btnOpenOrClosePort);
             this.Controls.Add(this.btnPort);
             this.Controls.Add(this.rtbStatus);
@@ -113,8 +128,9 @@ namespace COMPortTerminal
         internal /* TRANSINFO: WithEvents */ System.Windows.Forms.RichTextBox rtbMonitor;
         internal /* TRANSINFO: WithEvents */ System.Windows.Forms.RichTextBox rtbStatus; 
         internal /* TRANSINFO: WithEvents */ System.Windows.Forms.Button btnPort; 
-        internal /* TRANSINFO: WithEvents */ System.Windows.Forms.Button btnOpenOrClosePort; 
-        internal /* TRANSINFO: WithEvents */ System.Windows.Forms.Timer tmrLookForPortChanges; 
+        internal /* TRANSINFO: WithEvents */ System.Windows.Forms.Button btnOpenOrClosePort;
+        internal /* TRANSINFO: WithEvents */ System.Windows.Forms.Timer tmrLookForPortChanges;
+        private Label cancelText; 
         
         
     } 
