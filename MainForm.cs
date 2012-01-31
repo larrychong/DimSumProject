@@ -13,12 +13,21 @@ namespace COMPortTerminal
     public partial class MainForm  
     {
         private string str_rfid = "";
+<<<<<<< HEAD
         private int quantity=0;
+=======
+        private int quantity=1;
+>>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
         private enum eMode { eOperational, eCancel };
         private eMode mode = eMode.eOperational;
         //stack use to delete the most previous one? Or do we not need it
         private Stack<DimSumSizes> stack = new Stack<DimSumSizes>();
         private Stack<DimSumSizes> temp_stack = new Stack<DimSumSizes>();
+<<<<<<< HEAD
+=======
+        private double bill_total=0;
+        private int item_total=0;
+>>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
 
         public MainForm() 
         { 
@@ -66,11 +75,17 @@ namespace COMPortTerminal
                             case eMode.eOperational:
                                 if (str_rfid.Contains("4B00DA17F573"))
                                 {
+<<<<<<< HEAD
 
                                     rtbMonitor.AppendText("small\n");
                                     DimSumSizes DSSmall = new DimSumSizes(DimSumSizes.eSize.eSmall, quantity);
                                     rtbMonitor.AppendText(DSSmall.getQuantity() + "\t" + DSSmall.getSizeString()
                                                             + "\t" + DSSmall.getPrice() + "\n");
+=======
+                                    DimSumSizes DSSmall = new DimSumSizes(DimSumSizes.eSize.eSmall, quantity);
+                                    rtbMonitor.AppendText(DSSmall.getQuantity() + "\t" + DSSmall.getSizeString()
+                                                            + "\t\t" + DSSmall.getPrice() + "\n");
+>>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
                                     stack.Push(DSSmall);
                                 }
                                 else if (str_rfid.Contains("4800E50372DC"))
@@ -85,13 +100,21 @@ namespace COMPortTerminal
                                     DimSumSizes DSLarge = new DimSumSizes(DimSumSizes.eSize.eLarge, quantity);
                                     //probably don't need this line
                                     rtbMonitor.AppendText(DSLarge.getQuantity() + "\t" + DSLarge.getSizeString() 
+<<<<<<< HEAD
                                                             + "\t" + DSLarge.getPrice() + "\n");
+=======
+                                                            + "\t\t" + DSLarge.getPrice() + "\n");
+>>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
                                     stack.Push(DSLarge);
                                 }
                                 else
                                 {
                                     DisplayStatus("Invalid Card. Please scan again.\n", textColor);
                                 }
+<<<<<<< HEAD
+=======
+                                
+>>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
                                 break;
 
                             //cancel mode
@@ -99,6 +122,7 @@ namespace COMPortTerminal
                                 rtbMonitor.Clear();
                                 if (str_rfid.Contains("4B00DA17F573"))
                                 {
+<<<<<<< HEAD
                                     if (stack.Count != 0)
                                     {
                                         foreach (DimSumSizes size in stack)
@@ -111,15 +135,38 @@ namespace COMPortTerminal
                                             {
                                                 // push back all the stuff back into the main one
                                                 if (temp_stack.Count != 0)
+=======
+                                    Console.WriteLine("Stack SIZE" + stack.Count);
+                                        while (stack.Count!=0)
+                                        {
+                                            DimSumSizes size = stack.Peek();
+                                            if (size.getSize() != DimSumSizes.eSize.eSmall)
+                                            {
+                                                stack.Pop();
+                                            }
+                                            else
+                                            {
+                                                break;
+                                                // push back all the stuff back into the main one
+                                                /*if (temp_stack.Count != 0)
+>>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
                                                 {
                                                     foreach (DimSumSizes temp in temp_stack)
                                                     {
                                                         stack.Push(temp_stack.Pop());
                                                     }
+<<<<<<< HEAD
                                                 }
                                             }
                                         }
                                     }
+=======
+                                                }*/
+                                            }
+                                        }
+                                        Console.WriteLine("Stack SIZE" + stack.Count);
+                                        Console.WriteLine ("DONE");
+>>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
                                     //small
                                     // keep popping value and putting it into another stack
                                     // until you hit a small and push everything back in?
@@ -155,7 +202,22 @@ namespace COMPortTerminal
                                 break;
                         }
                         //reset text
+<<<<<<< HEAD
                         str_rfid = "";  
+=======
+                        str_rfid = "";
+                        bill_total = 0;
+                        item_total = 0;
+                        //calcaulate total here
+                        foreach (DimSumSizes size in stack)
+                        {
+                            bill_total += size.getQuantity() * size.getPrice();
+                            item_total += size.getQuantity();
+                        }
+                        Console.WriteLine("TOTAL: " + bill_total);
+                        Console.WriteLine("Total Item: " + item_total);
+                        totalSum.Text = "Total: $" + bill_total + "\n" + "Total # of Items: " + item_total;
+>>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
                     }
                     // Return to the default color.
                     rtbMonitor.SelectionColor = colorTransmit; 
@@ -615,6 +677,296 @@ namespace COMPortTerminal
             }
         }
 
+<<<<<<< HEAD
+=======
+        private void NumPad1_Click(object sender, EventArgs e)
+        {
+            if (NumPad1.BackColor == Color.White)
+            {
+                NumPad1.ForeColor = Color.White;
+                NumPad1.BackColor = Color.CadetBlue;
+                NumPad2.ForeColor = Color.Black;
+                NumPad2.BackColor = Color.White;
+                NumPad3.ForeColor = Color.Black;
+                NumPad3.BackColor = Color.White;
+                NumPad4.ForeColor = Color.Black;
+                NumPad4.BackColor = Color.White;
+                NumPad5.ForeColor = Color.Black;
+                NumPad5.BackColor = Color.White;
+                NumPad6.ForeColor = Color.Black;
+                NumPad6.BackColor = Color.White;
+                NumPad7.ForeColor = Color.Black;
+                NumPad7.BackColor = Color.White;
+                NumPad8.ForeColor = Color.Black;
+                NumPad8.BackColor = Color.White;
+                NumPad9.ForeColor = Color.Black;
+                NumPad9.BackColor = Color.White;
+            }
+            else
+            {
+                NumPad1.ForeColor = Color.Black;
+                NumPad1.BackColor = Color.White;                
+            }
+            quantity = 1;
+        }
+
+        private void NumPad2_Click(object sender, EventArgs e)
+        {
+            if (NumPad2.BackColor == Color.White)
+            {
+                NumPad1.ForeColor = Color.Black;
+                NumPad1.BackColor = Color.White;
+                NumPad2.ForeColor = Color.White;
+                NumPad2.BackColor = Color.CadetBlue;
+                NumPad3.ForeColor = Color.Black;
+                NumPad3.BackColor = Color.White;
+                NumPad4.ForeColor = Color.Black;
+                NumPad4.BackColor = Color.White;
+                NumPad5.ForeColor = Color.Black;
+                NumPad5.BackColor = Color.White;
+                NumPad6.ForeColor = Color.Black;
+                NumPad6.BackColor = Color.White;
+                NumPad7.ForeColor = Color.Black;
+                NumPad7.BackColor = Color.White;
+                NumPad8.ForeColor = Color.Black;
+                NumPad8.BackColor = Color.White;
+                NumPad9.ForeColor = Color.Black;
+                NumPad9.BackColor = Color.White; 
+                quantity = 2;
+            }
+            else
+            {
+                NumPad2.ForeColor = Color.Black;
+                NumPad2.BackColor = Color.White;
+                quantity = 1;
+            }
+        }
+
+        private void NumPad3_Click(object sender, EventArgs e)
+        {
+            if (NumPad3.BackColor == Color.White)
+            {
+                NumPad1.ForeColor = Color.Black;
+                NumPad1.BackColor = Color.White;
+                NumPad2.ForeColor = Color.Black;
+                NumPad2.BackColor = Color.White;
+                NumPad3.ForeColor = Color.White;
+                NumPad3.BackColor = Color.CadetBlue;
+                NumPad4.ForeColor = Color.Black;
+                NumPad4.BackColor = Color.White;
+                NumPad5.ForeColor = Color.Black;
+                NumPad5.BackColor = Color.White;
+                NumPad6.ForeColor = Color.Black;
+                NumPad6.BackColor = Color.White;
+                NumPad7.ForeColor = Color.Black;
+                NumPad7.BackColor = Color.White;
+                NumPad8.ForeColor = Color.Black;
+                NumPad8.BackColor = Color.White;
+                NumPad9.ForeColor = Color.Black;
+                NumPad9.BackColor = Color.White;
+                quantity = 3;
+            }
+            else
+            {
+                NumPad3.ForeColor = Color.Black;
+                NumPad3.BackColor = Color.White;
+                quantity = 1;
+            }
+        }
+
+        private void NumPad4_Click(object sender, EventArgs e)
+        {
+            if (NumPad4.BackColor == Color.White)
+            {
+                NumPad1.ForeColor = Color.Black;
+                NumPad1.BackColor = Color.White;
+                NumPad2.ForeColor = Color.Black;
+                NumPad2.BackColor = Color.White;
+                NumPad3.ForeColor = Color.Black;
+                NumPad3.BackColor = Color.White;
+                NumPad4.ForeColor = Color.White;
+                NumPad4.BackColor = Color.CadetBlue;
+                NumPad5.ForeColor = Color.Black;
+                NumPad5.BackColor = Color.White;
+                NumPad6.ForeColor = Color.Black;
+                NumPad6.BackColor = Color.White;
+                NumPad7.ForeColor = Color.Black;
+                NumPad7.BackColor = Color.White;
+                NumPad8.ForeColor = Color.Black;
+                NumPad8.BackColor = Color.White;
+                NumPad9.ForeColor = Color.Black;
+                NumPad9.BackColor = Color.White;
+                quantity = 4;
+            }
+            else
+            {
+                NumPad4.ForeColor = Color.Black;
+                NumPad4.BackColor = Color.White;
+                quantity = 1;
+            }
+        }
+
+        private void NumPad5_Click(object sender, EventArgs e)
+        {
+            if (NumPad5.BackColor == Color.White)
+            {
+                NumPad1.ForeColor = Color.Black;
+                NumPad1.BackColor = Color.White;
+                NumPad2.ForeColor = Color.Black;
+                NumPad2.BackColor = Color.White;
+                NumPad3.ForeColor = Color.Black;
+                NumPad3.BackColor = Color.White;
+                NumPad4.ForeColor = Color.Black;
+                NumPad4.BackColor = Color.White;
+                NumPad5.ForeColor = Color.White;
+                NumPad5.BackColor = Color.CadetBlue;
+                NumPad6.ForeColor = Color.Black;
+                NumPad6.BackColor = Color.White;
+                NumPad7.ForeColor = Color.Black;
+                NumPad7.BackColor = Color.White;
+                NumPad8.ForeColor = Color.Black;
+                NumPad8.BackColor = Color.White;
+                NumPad9.ForeColor = Color.Black;
+                NumPad9.BackColor = Color.White;
+                quantity = 5;
+            }
+            else
+            {
+                NumPad5.ForeColor = Color.Black;
+                NumPad5.BackColor = Color.White;
+                quantity = 1;
+            }
+        }
+
+        private void NumPad6_Click(object sender, EventArgs e)
+        {
+            if (NumPad6.BackColor == Color.White)
+            {
+                NumPad1.ForeColor = Color.Black;
+                NumPad1.BackColor = Color.White;
+                NumPad2.ForeColor = Color.Black;
+                NumPad2.BackColor = Color.White;
+                NumPad3.ForeColor = Color.Black;
+                NumPad3.BackColor = Color.White;
+                NumPad4.ForeColor = Color.Black;
+                NumPad4.BackColor = Color.White;
+                NumPad5.ForeColor = Color.Black;
+                NumPad5.BackColor = Color.White;
+                NumPad6.ForeColor = Color.White;
+                NumPad6.BackColor = Color.CadetBlue;
+                NumPad7.ForeColor = Color.Black;
+                NumPad7.BackColor = Color.White;
+                NumPad8.ForeColor = Color.Black;
+                NumPad8.BackColor = Color.White;
+                NumPad9.ForeColor = Color.Black;
+                NumPad9.BackColor = Color.White;
+                quantity = 6;
+            }
+            else
+            {
+                NumPad6.ForeColor = Color.Black;
+                NumPad6.BackColor = Color.White;
+                quantity = 1;
+            }
+        }
+
+        private void NumPad7_Click(object sender, EventArgs e)
+        {
+            if (NumPad7.BackColor == Color.White)
+            {
+                NumPad1.ForeColor = Color.Black;
+                NumPad1.BackColor = Color.White;
+                NumPad2.ForeColor = Color.Black;
+                NumPad2.BackColor = Color.White;
+                NumPad3.ForeColor = Color.Black;
+                NumPad3.BackColor = Color.White;
+                NumPad4.ForeColor = Color.Black;
+                NumPad4.BackColor = Color.White;
+                NumPad5.ForeColor = Color.Black;
+                NumPad5.BackColor = Color.White;
+                NumPad6.ForeColor = Color.Black;
+                NumPad6.BackColor = Color.White;
+                NumPad7.ForeColor = Color.White;
+                NumPad7.BackColor = Color.CadetBlue;
+                NumPad8.ForeColor = Color.Black;
+                NumPad8.BackColor = Color.White;
+                NumPad9.ForeColor = Color.Black;
+                NumPad9.BackColor = Color.White;
+                quantity = 7;
+            }
+            else
+            {
+                NumPad7.ForeColor = Color.Black;
+                NumPad7.BackColor = Color.White;
+                quantity = 1;
+            }
+        }
+
+        private void NumPad8_Click(object sender, EventArgs e)
+        {
+            if (NumPad8.BackColor == Color.White)
+            {
+                NumPad1.ForeColor = Color.Black;
+                NumPad1.BackColor = Color.White;
+                NumPad2.ForeColor = Color.Black;
+                NumPad2.BackColor = Color.White;
+                NumPad3.ForeColor = Color.Black;
+                NumPad3.BackColor = Color.White;
+                NumPad4.ForeColor = Color.Black;
+                NumPad4.BackColor = Color.White;
+                NumPad5.ForeColor = Color.Black;
+                NumPad5.BackColor = Color.White;
+                NumPad6.ForeColor = Color.Black;
+                NumPad6.BackColor = Color.White;
+                NumPad7.ForeColor = Color.Black;
+                NumPad7.BackColor = Color.White;
+                NumPad8.ForeColor = Color.White;
+                NumPad8.BackColor = Color.CadetBlue;
+                NumPad9.ForeColor = Color.Black;
+                NumPad9.BackColor = Color.White;
+                quantity = 8;
+            }
+            else
+            {
+                NumPad8.ForeColor = Color.Black;
+                NumPad8.BackColor = Color.White;
+                quantity = 1;
+            }
+        }
+
+        private void NumPad9_Click(object sender, EventArgs e)
+        {
+            if (NumPad9.BackColor == Color.White)
+            {
+                NumPad1.ForeColor = Color.Black;
+                NumPad1.BackColor = Color.White;
+                NumPad2.ForeColor = Color.Black;
+                NumPad2.BackColor = Color.White;
+                NumPad3.ForeColor = Color.Black;
+                NumPad3.BackColor = Color.White;
+                NumPad4.ForeColor = Color.Black;
+                NumPad4.BackColor = Color.White;
+                NumPad5.ForeColor = Color.Black;
+                NumPad5.BackColor = Color.White;
+                NumPad6.ForeColor = Color.Black;
+                NumPad6.BackColor = Color.White;
+                NumPad7.ForeColor = Color.Black;
+                NumPad7.BackColor = Color.White;
+                NumPad8.ForeColor = Color.Black;
+                NumPad8.BackColor = Color.White;
+                NumPad9.ForeColor = Color.White;
+                NumPad9.BackColor = Color.CadetBlue;
+                quantity = 9;
+            }
+            else
+            {
+                NumPad9.ForeColor = Color.Black;
+                NumPad9.BackColor = Color.White;
+                quantity = 1;
+            }
+        }
+
+>>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
 
 
     }   
