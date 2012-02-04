@@ -13,25 +13,18 @@ namespace COMPortTerminal
     public partial class MainForm  
     {
         private string str_rfid = "";
-<<<<<<< HEAD
-        private int quantity=0;
-=======
         private int quantity=1;
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
         private enum eMode { eOperational, eCancel };
         private eMode mode = eMode.eOperational;
         //stack use to delete the most previous one? Or do we not need it
         private Stack<DimSumSizes> stack = new Stack<DimSumSizes>();
         private Stack<DimSumSizes> temp_stack = new Stack<DimSumSizes>();
-<<<<<<< HEAD
-=======
         private double bill_total=0;
         private int item_total=0;
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
 
         public MainForm() 
         { 
-            InitializeComponent();if (transDefaultFormMainForm == null)	transDefaultFormMainForm = this;
+            InitializeComponent();if (transDefaultFormMainForm == null)    transDefaultFormMainForm = this;
            
             btnOpenOrClosePort.Click += new System.EventHandler( btnOpenOrClosePort_Click );             
             btnPort.Click += new System.EventHandler( btnPort_Click );                            
@@ -75,17 +68,9 @@ namespace COMPortTerminal
                             case eMode.eOperational:
                                 if (str_rfid.Contains("4B00DA17F573"))
                                 {
-<<<<<<< HEAD
-
-                                    rtbMonitor.AppendText("small\n");
-                                    DimSumSizes DSSmall = new DimSumSizes(DimSumSizes.eSize.eSmall, quantity);
-                                    rtbMonitor.AppendText(DSSmall.getQuantity() + "\t" + DSSmall.getSizeString()
-                                                            + "\t" + DSSmall.getPrice() + "\n");
-=======
                                     DimSumSizes DSSmall = new DimSumSizes(DimSumSizes.eSize.eSmall, quantity);
                                     rtbMonitor.AppendText(DSSmall.getQuantity() + "\t" + DSSmall.getSizeString()
                                                             + "\t\t" + DSSmall.getPrice() + "\n");
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
                                     stack.Push(DSSmall);
                                 }
                                 else if (str_rfid.Contains("4800E50372DC"))
@@ -100,21 +85,14 @@ namespace COMPortTerminal
                                     DimSumSizes DSLarge = new DimSumSizes(DimSumSizes.eSize.eLarge, quantity);
                                     //probably don't need this line
                                     rtbMonitor.AppendText(DSLarge.getQuantity() + "\t" + DSLarge.getSizeString() 
-<<<<<<< HEAD
-                                                            + "\t" + DSLarge.getPrice() + "\n");
-=======
                                                             + "\t\t" + DSLarge.getPrice() + "\n");
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
                                     stack.Push(DSLarge);
                                 }
                                 else
                                 {
                                     DisplayStatus("Invalid Card. Please scan again.\n", textColor);
                                 }
-<<<<<<< HEAD
-=======
                                 
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
                                 break;
 
                             //cancel mode
@@ -122,20 +100,6 @@ namespace COMPortTerminal
                                 rtbMonitor.Clear();
                                 if (str_rfid.Contains("4B00DA17F573"))
                                 {
-<<<<<<< HEAD
-                                    if (stack.Count != 0)
-                                    {
-                                        foreach (DimSumSizes size in stack)
-                                        {
-                                            if (size.getSize() != DimSumSizes.eSize.eSmall)
-                                            {
-                                                temp_stack.Push(stack.Pop());
-                                            }
-                                            else
-                                            {
-                                                // push back all the stuff back into the main one
-                                                if (temp_stack.Count != 0)
-=======
                                     Console.WriteLine("Stack SIZE" + stack.Count);
                                         while (stack.Count!=0)
                                         {
@@ -149,24 +113,16 @@ namespace COMPortTerminal
                                                 break;
                                                 // push back all the stuff back into the main one
                                                 /*if (temp_stack.Count != 0)
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
                                                 {
                                                     foreach (DimSumSizes temp in temp_stack)
                                                     {
                                                         stack.Push(temp_stack.Pop());
                                                     }
-<<<<<<< HEAD
-                                                }
-                                            }
-                                        }
-                                    }
-=======
                                                 }*/
                                             }
                                         }
                                         Console.WriteLine("Stack SIZE" + stack.Count);
                                         Console.WriteLine ("DONE");
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
                                     //small
                                     // keep popping value and putting it into another stack
                                     // until you hit a small and push everything back in?
@@ -202,9 +158,6 @@ namespace COMPortTerminal
                                 break;
                         }
                         //reset text
-<<<<<<< HEAD
-                        str_rfid = "";  
-=======
                         str_rfid = "";
                         bill_total = 0;
                         item_total = 0;
@@ -217,7 +170,6 @@ namespace COMPortTerminal
                         Console.WriteLine("TOTAL: " + bill_total);
                         Console.WriteLine("Total Item: " + item_total);
                         totalSum.Text = "Total: $" + bill_total + "\n" + "Total # of Items: " + item_total;
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
                     }
                     // Return to the default color.
                     rtbMonitor.SelectionColor = colorTransmit; 
@@ -677,8 +629,6 @@ namespace COMPortTerminal
             }
         }
 
-<<<<<<< HEAD
-=======
         private void NumPad1_Click(object sender, EventArgs e)
         {
             if (NumPad1.BackColor == Color.White)
@@ -966,7 +916,6 @@ namespace COMPortTerminal
             }
         }
 
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
 
 
     }   
