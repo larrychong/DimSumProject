@@ -39,8 +39,6 @@ namespace COMPortTerminal
             this.btnOpenOrClosePort = new System.Windows.Forms.Button();
             this.tmrLookForPortChanges = new System.Windows.Forms.Timer(this.components);
             this.cancelText = new System.Windows.Forms.Label();
-<<<<<<< HEAD
-=======
             this.NumPad1 = new System.Windows.Forms.Label();
             this.NumPad2 = new System.Windows.Forms.Label();
             this.NumPad3 = new System.Windows.Forms.Label();
@@ -52,7 +50,6 @@ namespace COMPortTerminal
             this.NumPad9 = new System.Windows.Forms.Label();
             this.totalSum = new System.Windows.Forms.Label();
             this.clientAppLabel = new System.Windows.Forms.Label();
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
             this.SuspendLayout();
             // 
             // rtbMonitor
@@ -63,11 +60,7 @@ namespace COMPortTerminal
             this.rtbMonitor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbMonitor.Location = new System.Drawing.Point(18, 44);
             this.rtbMonitor.Name = "rtbMonitor";
-<<<<<<< HEAD
-            this.rtbMonitor.Size = new System.Drawing.Size(434, 329);
-=======
             this.rtbMonitor.Size = new System.Drawing.Size(457, 329);
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
             this.rtbMonitor.TabIndex = 7;
             this.rtbMonitor.Text = "";
             // 
@@ -82,11 +75,7 @@ namespace COMPortTerminal
             this.rtbStatus.Margin = new System.Windows.Forms.Padding(5);
             this.rtbStatus.Name = "rtbStatus";
             this.rtbStatus.ReadOnly = true;
-<<<<<<< HEAD
-            this.rtbStatus.Size = new System.Drawing.Size(710, 50);
-=======
             this.rtbStatus.Size = new System.Drawing.Size(627, 50);
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
             this.rtbStatus.TabIndex = 8;
             this.rtbStatus.Text = "";
             // 
@@ -120,19 +109,13 @@ namespace COMPortTerminal
             this.cancelText.BackColor = System.Drawing.Color.White;
             this.cancelText.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelText.ForeColor = System.Drawing.Color.Maroon;
-<<<<<<< HEAD
-            this.cancelText.Location = new System.Drawing.Point(528, 44);
-=======
             this.cancelText.Location = new System.Drawing.Point(511, 43);
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
             this.cancelText.Name = "cancelText";
             this.cancelText.Size = new System.Drawing.Size(196, 61);
             this.cancelText.TabIndex = 12;
             this.cancelText.Text = "Cancel";
             this.cancelText.Click += new System.EventHandler(this.cancelText_Click);
             // 
-<<<<<<< HEAD
-=======
             // NumPad1
             // 
             this.NumPad1.AutoSize = true;
@@ -260,14 +243,10 @@ namespace COMPortTerminal
             this.clientAppLabel.TabIndex = 22;
             this.clientAppLabel.Text = "CLIENT APP DEMO";
             // 
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-<<<<<<< HEAD
-            this.ClientSize = new System.Drawing.Size(833, 523);
-=======
             this.ClientSize = new System.Drawing.Size(750, 523);
             this.Controls.Add(this.clientAppLabel);
             this.Controls.Add(this.totalSum);
@@ -280,7 +259,6 @@ namespace COMPortTerminal
             this.Controls.Add(this.NumPad3);
             this.Controls.Add(this.NumPad2);
             this.Controls.Add(this.NumPad1);
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
             this.Controls.Add(this.cancelText);
             this.Controls.Add(this.btnOpenOrClosePort);
             this.Controls.Add(this.btnPort);
@@ -301,9 +279,6 @@ namespace COMPortTerminal
         internal /* TRANSINFO: WithEvents */ System.Windows.Forms.Button btnPort; 
         internal /* TRANSINFO: WithEvents */ System.Windows.Forms.Button btnOpenOrClosePort;
         internal /* TRANSINFO: WithEvents */ System.Windows.Forms.Timer tmrLookForPortChanges;
-<<<<<<< HEAD
-        private Label cancelText; 
-=======
         private Label cancelText;
         private Label NumPad1;
         private Label NumPad2;
@@ -316,7 +291,6 @@ namespace COMPortTerminal
         private Label NumPad9;
         private Label totalSum;
         private Label clientAppLabel; 
->>>>>>> 1351fe8101a6a3639307e58c5afd6835662b74c4
         
         
     } 
