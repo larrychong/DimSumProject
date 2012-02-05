@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using COMPortTerminal.Properties;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Timers;
 
 namespace COMPortTerminal
 {   
@@ -17,10 +18,13 @@ namespace COMPortTerminal
         private enum eMode { eOperational, eCancel };
         private eMode mode = eMode.eOperational;
         //stack use to delete the most previous one? Or do we not need it
-        private Stack<DimSumSizes> stack = new Stack<DimSumSizes>();
-        private Stack<DimSumSizes> temp_stack = new Stack<DimSumSizes>();
+        private OrderList order_list = new OrderList();
+        private Stack<Order> stack = new Stack<Order>();
+        private Stack<Order> temp_stack = new Stack<Order>();
         private double bill_total=0;
+        private double sub_total = 0;
         private int item_total=0;
+        private System.Timers.Timer t = null;
 
         public MainForm() 
         { 
@@ -44,10 +48,11 @@ namespace COMPortTerminal
             
         private Color colorReceive = Color.Green;
         private Color colorTransmit = Color.Black;
-        private int maximumTextBoxLength;
+        //private int maximumTextBoxLength;
         private string receiveBuffer;
         private bool savedOpenPortOnStartup;
         private int userInputIndex;
+        private int orderID = 0;
 
         private void AccessForm( string action, string formText, Color textColor ) 
         {
@@ -59,8 +64,8 @@ namespace COMPortTerminal
 
                     //rtbMonitor.AppendText(formText);
                     str_rfid += formText;
-
-                    if (str_rfid.Length >= 10)
+                    
+                    if (str_rfid.Length > 13)
                     {
                         switch (mode)
                         {
@@ -68,76 +73,83 @@ namespace COMPortTerminal
                             case eMode.eOperational:
                                 if (str_rfid.Contains("4B00DA17F573"))
                                 {
-                                    DimSumSizes DSSmall = new DimSumSizes(DimSumSizes.eSize.eSmall, quantity);
-                                    rtbMonitor.AppendText(DSSmall.getQuantity() + "\t" + DSSmall.getSizeString()
-                                                            + "\t\t" + DSSmall.getPrice() + "\n");
-                                    stack.Push(DSSmall);
+                                   DisplayStatus("", textColor);
+                                   Order new_item = new Order(Order.eSize.eSmall, quantity, orderID);
+                                   order_list.Add(new_item);  
+                                  // OrderListBox.SelectedIndex = OrderListBox.Items.Count - 1;
+                                   // rtbMonitor.AppendText(DSSmall.getQuantity() + "\t" + DSSmall.getSizeString()
+                                                          //  + "\t\t" + new_item.getPrice() + "\n");
+                                   // stack.Push(DSSmall);
                                 }
                                 else if (str_rfid.Contains("4800E50372DC"))
                                 {
-                                    DimSumSizes DSMedium = new DimSumSizes(DimSumSizes.eSize.eMedium, quantity);
-                                    rtbMonitor.AppendText(DSMedium.getQuantity() + "\t" + DSMedium.getSizeString()
-                                                            + "\t" + DSMedium.getPrice() + "\n");
-                                    stack.Push(DSMedium);
+                                    DisplayStatus("", textColor);
+                                    Order new_item = new Order(Order.eSize.eMedium, quantity, orderID);
+                                    order_list.Add(new_item);
+                                    //OrderListBox.SelectedIndex = OrderListBox.Items.Count -1;
+                                    //rtbMonitor.AppendText(new_item.getQuantity() + "\t" + new_item.getSizeString()
+                                   //                         + "\t" + new_item.getPrice() + "\n");
+                                   // stack.Push(new_item);
                                 }
                                 else if (str_rfid.Contains("4B00DA60DB2A"))
                                 {
-                                    DimSumSizes DSLarge = new DimSumSizes(DimSumSizes.eSize.eLarge, quantity);
+                                    DisplayStatus("", textColor);
+                                    Order new_item = new Order(Order.eSize.eLarge, quantity, orderID);
+                                    order_list.Add(new_item);
+                                   // OrderListBox.SelectedIndex = OrderListBox.Items.Count - 1;
                                     //probably don't need this line
-                                    rtbMonitor.AppendText(DSLarge.getQuantity() + "\t" + DSLarge.getSizeString() 
-                                                            + "\t\t" + DSLarge.getPrice() + "\n");
-                                    stack.Push(DSLarge);
+                                    //rtbMonitor.AppendText(new_item.getQuantity() + "\t" + new_item.getSizeString() 
+                                    //                        + "\t\t" + new_item.getPrice() + "\n");
+                                    //stack.Push(new_item);
                                 }
                                 else
                                 {
-                                    DisplayStatus("Invalid Card. Please scan again.\n", textColor);
+                                    DisplayStatus("Invalid Card. Please scan again.\n" + str_rfid, textColor);
+                                  
                                 }
-                                
+
+                                orderID++;
+                                OrderListBox.DataSource = order_list.toStringList();
+                                if (order_list.Count != 0)
+                                {
+                                    OrderListBox.SetSelected(0, false);
+                                }
+                                OrderListBox.Refresh();
                                 break;
 
                             //cancel mode
                             case eMode.eCancel:
-                                rtbMonitor.Clear();
-                                if (str_rfid.Contains("4B00DA17F573"))
+                                //rtbMonitor.Clear();
+                                if (str_rfid.Contains("4B00DA47EA3C"))
                                 {
-                                    Console.WriteLine("Stack SIZE" + stack.Count);
-                                        while (stack.Count!=0)
+                                    CancelButton.BackColor = Color.LightGray;
+                                    mode = eMode.eOperational;
+                                    int i = 0;
+                                    int del = order_list.Count-1;
+                                    foreach (Order n in order_list)
+                                    {
+                                        if (OrderListBox.GetSelected(i))
                                         {
-                                            DimSumSizes size = stack.Peek();
-                                            if (size.getSize() != DimSumSizes.eSize.eSmall)
+                                            if (quantity < n.getQuantity())
                                             {
-                                                stack.Pop();
+                                                n.setQuantity(n.getQuantity() - quantity);
                                             }
                                             else
                                             {
+                                                order_list.RemoveAt(del);
                                                 break;
-                                                // push back all the stuff back into the main one
-                                                /*if (temp_stack.Count != 0)
-                                                {
-                                                    foreach (DimSumSizes temp in temp_stack)
-                                                    {
-                                                        stack.Push(temp_stack.Pop());
-                                                    }
-                                                }*/
                                             }
+                                            
                                         }
-                                        Console.WriteLine("Stack SIZE" + stack.Count);
-                                        Console.WriteLine ("DONE");
-                                    //small
-                                    // keep popping value and putting it into another stack
-                                    // until you hit a small and push everything back in?
-                                    // call a function to update display when queue updates.
-                                    
-                                    //question: how the hell we gonna dispaly this if we send the stack tot he amanger side...
-                                    //it'll be upside down -.-" (reversing the stack seems dumb too)
-                                }
-                                else if (str_rfid.Contains("4800E50372DC"))
-                                {
-                                    //medium
-                                }
-                                else if (str_rfid.Contains("4B00DA60DB2A"))
-                                {
-                                    //large
+                                        i++;
+                                        del--;
+                                    }
+                                    OrderListBox.DataSource = order_list.toStringList();
+                                    OrderListBox.Refresh();
+                                    if (order_list.Count != 0)
+                                    {
+                                        OrderListBox.SetSelected(0, false);
+                                    }
                                 }
                                 else
                                 {
@@ -146,11 +158,11 @@ namespace COMPortTerminal
                                 }
                                 //display new thing
                                 //hopefully this doesn't reverse the order hahah...
-                                DimSumSizes[] list_of_items = stack.ToArray();
-                                foreach (DimSumSizes size in list_of_items)
+                                Order[] list_of_items = stack.ToArray();
+                                foreach (Order size in list_of_items)
                                 {
-                                    rtbMonitor.AppendText(size.getQuantity() + "\t" + size.getSizeString()
-                                                    + "\t" + size.getPrice() + "\n");
+                                  //  rtbMonitor.AppendText(size.getQuantity() + "\t" + size.getSizeString()
+                                    //                + "\t" + size.getPrice() + "\n");
                                 }
                                 break;
                             default:
@@ -159,27 +171,24 @@ namespace COMPortTerminal
                         }
                         //reset text
                         str_rfid = "";
-                        bill_total = 0;
-                        item_total = 0;
-                        //calcaulate total here
-                        foreach (DimSumSizes size in stack)
-                        {
-                            bill_total += size.getQuantity() * size.getPrice();
-                            item_total += size.getQuantity();
-                        }
+                        sub_total = order_list.getTotalPrice();
+                        bill_total = sub_total*1.13;
+                        item_total = order_list.getTotalQuantity();
                         Console.WriteLine("TOTAL: " + bill_total);
+                        Console.WriteLine("SUBTOTAL: " + sub_total);
                         Console.WriteLine("Total Item: " + item_total);
-                        totalSum.Text = "Total: $" + bill_total + "\n" + "Total # of Items: " + item_total;
+                        totalSum.Text = "Subtotal: $" + sub_total + "\n" + "Total:$" + bill_total.ToString("0.00") + "\n" + "Total # of Items: " + item_total;
                     }
                     // Return to the default color.
-                    rtbMonitor.SelectionColor = colorTransmit; 
+                    //rtbMonitor.SelectionColor = colorTransmit; 
                     
                     //  Trim the textbox's contents if needed.
                     
-                    if ( rtbMonitor.TextLength > maximumTextBoxLength ) 
+                   /* if ( rtbMonitor.TextLength > maximumTextBoxLength ) 
                     {                         
                         TrimTextBoxContents();                         
                     }                    
+                    */
                     break;
 
                 case "DisplayStatus":
@@ -201,6 +210,16 @@ namespace COMPortTerminal
                     
                     break;
             }                      
+        }
+
+        void t_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            CancelButton.BackColor = Color.LightGray;
+            mode = eMode.eOperational;
+            if (t != null)
+            {
+                t.Dispose();
+            }
         } 
      
         /// <summary>
@@ -299,10 +318,10 @@ namespace COMPortTerminal
          
 
         private void InitializeDisplayElements() 
-        {        
-            
-            maximumTextBoxLength = 10000; 
-            rtbMonitor.SelectionColor = colorTransmit;             
+        {
+            totalSum.Text = "Subtotal: $" + sub_total + "\n" + "Total:$" + bill_total.ToString("0.00") + "\n" + "Total # of Items: " + item_total;
+            //maximumTextBoxLength = 10000; 
+            //rtbMonitor.SelectionColor = colorTransmit;             
         }
            
         /// <summary> 
@@ -425,7 +444,7 @@ namespace COMPortTerminal
         /// create a temporary richtextbox, copy the contents to be preserved to the 
         /// temporary richtextbox,and copy the temporary richtextbox back to the original richtextbox.
         /// </remarks>
-
+        /*
         private void TrimTextBoxContents() 
         {        
             RichTextBox rtbTemp = new RichTextBox(); 
@@ -442,7 +461,7 @@ namespace COMPortTerminal
             rtbTemp = null; 
             rtbMonitor.SelectionStart = rtbMonitor.TextLength;             
         } 
-
+        */
         /// <summary>
         /// Set the text in the ToolStripStatusLabel.
         /// </summary>
@@ -594,7 +613,7 @@ namespace COMPortTerminal
                 SetPortParameters( UserPort1.SavedPortName, UserPort1.SavedBitRate, ( ( Handshake )( UserPort1.SavedHandshake ) ) ); 
                 
                 DisplayCurrentSettings(); 
-                UserPort1.ParameterChanged = true; 
+                UserPort1.ParameterChanged = true;
             } 
         } 
                 
@@ -611,22 +630,6 @@ namespace COMPortTerminal
         		}
         		return transDefaultFormMainForm;
         	} 
-        }
-
-        private void cancelText_Click(object sender, EventArgs e)
-        {
-            if (cancelText.ForeColor == Color.Maroon)
-            {
-                cancelText.ForeColor = Color.White;
-                cancelText.BackColor = Color.Maroon;
-                mode = eMode.eCancel;
-            }
-            else
-            {
-                cancelText.ForeColor = Color.Maroon;
-                cancelText.BackColor = Color.White;
-                mode = eMode.eOperational;
-            }
         }
 
         private void NumPad1_Click(object sender, EventArgs e)
@@ -914,6 +917,21 @@ namespace COMPortTerminal
                 NumPad9.BackColor = Color.White;
                 quantity = 1;
             }
+        }
+
+        private void OrderListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CancelButtont_Click(object sender, EventArgs e)
+        {
+            CancelButton.BackColor = Color.DarkGray;
+            t = new System.Timers.Timer(5000);
+            t.Elapsed += new ElapsedEventHandler(t_Elapsed);
+            t.Enabled = true;
+            mode = eMode.eCancel;
+
         }
 
 
