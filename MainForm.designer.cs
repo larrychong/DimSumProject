@@ -33,12 +33,10 @@ namespace COMPortTerminal
         private void InitializeComponent() 
         {
             this.components = new System.ComponentModel.Container();
-            this.rtbMonitor = new System.Windows.Forms.RichTextBox();
             this.rtbStatus = new System.Windows.Forms.RichTextBox();
             this.btnPort = new System.Windows.Forms.Button();
             this.btnOpenOrClosePort = new System.Windows.Forms.Button();
             this.tmrLookForPortChanges = new System.Windows.Forms.Timer(this.components);
-            this.cancelText = new System.Windows.Forms.Label();
             this.NumPad1 = new System.Windows.Forms.Label();
             this.NumPad2 = new System.Windows.Forms.Label();
             this.NumPad3 = new System.Windows.Forms.Label();
@@ -50,19 +48,9 @@ namespace COMPortTerminal
             this.NumPad9 = new System.Windows.Forms.Label();
             this.totalSum = new System.Windows.Forms.Label();
             this.clientAppLabel = new System.Windows.Forms.Label();
+            this.OrderListBox = new System.Windows.Forms.ListBox();
+            this.CancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // rtbMonitor
-            // 
-            this.rtbMonitor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtbMonitor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbMonitor.Location = new System.Drawing.Point(18, 44);
-            this.rtbMonitor.Name = "rtbMonitor";
-            this.rtbMonitor.Size = new System.Drawing.Size(457, 329);
-            this.rtbMonitor.TabIndex = 7;
-            this.rtbMonitor.Text = "";
             // 
             // rtbStatus
             // 
@@ -103,25 +91,12 @@ namespace COMPortTerminal
             // 
             this.tmrLookForPortChanges.Interval = 1000;
             // 
-            // cancelText
-            // 
-            this.cancelText.AutoSize = true;
-            this.cancelText.BackColor = System.Drawing.Color.White;
-            this.cancelText.Font = new System.Drawing.Font("Microsoft Sans Serif", 39.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelText.ForeColor = System.Drawing.Color.Maroon;
-            this.cancelText.Location = new System.Drawing.Point(511, 43);
-            this.cancelText.Name = "cancelText";
-            this.cancelText.Size = new System.Drawing.Size(196, 61);
-            this.cancelText.TabIndex = 12;
-            this.cancelText.Text = "Cancel";
-            this.cancelText.Click += new System.EventHandler(this.cancelText_Click);
-            // 
             // NumPad1
             // 
             this.NumPad1.AutoSize = true;
             this.NumPad1.BackColor = System.Drawing.Color.White;
             this.NumPad1.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumPad1.Location = new System.Drawing.Point(544, 143);
+            this.NumPad1.Location = new System.Drawing.Point(446, 139);
             this.NumPad1.Name = "NumPad1";
             this.NumPad1.Size = new System.Drawing.Size(43, 46);
             this.NumPad1.TabIndex = 13;
@@ -133,7 +108,7 @@ namespace COMPortTerminal
             this.NumPad2.AutoSize = true;
             this.NumPad2.BackColor = System.Drawing.Color.White;
             this.NumPad2.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumPad2.Location = new System.Drawing.Point(587, 143);
+            this.NumPad2.Location = new System.Drawing.Point(489, 139);
             this.NumPad2.Name = "NumPad2";
             this.NumPad2.Size = new System.Drawing.Size(43, 46);
             this.NumPad2.TabIndex = 14;
@@ -145,7 +120,7 @@ namespace COMPortTerminal
             this.NumPad3.AutoSize = true;
             this.NumPad3.BackColor = System.Drawing.Color.White;
             this.NumPad3.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumPad3.Location = new System.Drawing.Point(630, 143);
+            this.NumPad3.Location = new System.Drawing.Point(532, 139);
             this.NumPad3.Name = "NumPad3";
             this.NumPad3.Size = new System.Drawing.Size(43, 46);
             this.NumPad3.TabIndex = 15;
@@ -157,7 +132,7 @@ namespace COMPortTerminal
             this.NumPad4.AutoSize = true;
             this.NumPad4.BackColor = System.Drawing.Color.White;
             this.NumPad4.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumPad4.Location = new System.Drawing.Point(544, 189);
+            this.NumPad4.Location = new System.Drawing.Point(446, 185);
             this.NumPad4.Name = "NumPad4";
             this.NumPad4.Size = new System.Drawing.Size(43, 46);
             this.NumPad4.TabIndex = 16;
@@ -169,7 +144,7 @@ namespace COMPortTerminal
             this.NumPad6.AutoSize = true;
             this.NumPad6.BackColor = System.Drawing.Color.White;
             this.NumPad6.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumPad6.Location = new System.Drawing.Point(630, 189);
+            this.NumPad6.Location = new System.Drawing.Point(532, 185);
             this.NumPad6.Name = "NumPad6";
             this.NumPad6.Size = new System.Drawing.Size(43, 46);
             this.NumPad6.TabIndex = 17;
@@ -181,7 +156,7 @@ namespace COMPortTerminal
             this.NumPad5.AutoSize = true;
             this.NumPad5.BackColor = System.Drawing.Color.White;
             this.NumPad5.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumPad5.Location = new System.Drawing.Point(587, 189);
+            this.NumPad5.Location = new System.Drawing.Point(489, 185);
             this.NumPad5.Name = "NumPad5";
             this.NumPad5.Size = new System.Drawing.Size(43, 46);
             this.NumPad5.TabIndex = 17;
@@ -193,7 +168,7 @@ namespace COMPortTerminal
             this.NumPad7.AutoSize = true;
             this.NumPad7.BackColor = System.Drawing.Color.White;
             this.NumPad7.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumPad7.Location = new System.Drawing.Point(544, 235);
+            this.NumPad7.Location = new System.Drawing.Point(446, 231);
             this.NumPad7.Name = "NumPad7";
             this.NumPad7.Size = new System.Drawing.Size(43, 46);
             this.NumPad7.TabIndex = 18;
@@ -205,7 +180,7 @@ namespace COMPortTerminal
             this.NumPad8.AutoSize = true;
             this.NumPad8.BackColor = System.Drawing.Color.White;
             this.NumPad8.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumPad8.Location = new System.Drawing.Point(587, 235);
+            this.NumPad8.Location = new System.Drawing.Point(489, 231);
             this.NumPad8.Name = "NumPad8";
             this.NumPad8.Size = new System.Drawing.Size(43, 46);
             this.NumPad8.TabIndex = 19;
@@ -217,7 +192,7 @@ namespace COMPortTerminal
             this.NumPad9.AutoSize = true;
             this.NumPad9.BackColor = System.Drawing.Color.White;
             this.NumPad9.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumPad9.Location = new System.Drawing.Point(630, 233);
+            this.NumPad9.Location = new System.Drawing.Point(532, 229);
             this.NumPad9.Name = "NumPad9";
             this.NumPad9.Size = new System.Drawing.Size(43, 46);
             this.NumPad9.TabIndex = 20;
@@ -228,7 +203,7 @@ namespace COMPortTerminal
             // 
             this.totalSum.AutoSize = true;
             this.totalSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalSum.Location = new System.Drawing.Point(528, 337);
+            this.totalSum.Location = new System.Drawing.Point(390, 319);
             this.totalSum.Name = "totalSum";
             this.totalSum.Size = new System.Drawing.Size(0, 46);
             this.totalSum.TabIndex = 21;
@@ -243,11 +218,35 @@ namespace COMPortTerminal
             this.clientAppLabel.TabIndex = 22;
             this.clientAppLabel.Text = "CLIENT APP DEMO";
             // 
+            // OrderListBox
+            // 
+            this.OrderListBox.Font = new System.Drawing.Font("Arial Narrow", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OrderListBox.FormattingEnabled = true;
+            this.OrderListBox.ItemHeight = 29;
+            this.OrderListBox.Location = new System.Drawing.Point(14, 92);
+            this.OrderListBox.Name = "OrderListBox";
+            this.OrderListBox.Size = new System.Drawing.Size(298, 236);
+            this.OrderListBox.TabIndex = 23;
+            this.OrderListBox.SelectedIndexChanged += new System.EventHandler(this.OrderListBox_SelectedIndexChanged);
+            // 
+            // CancelButton
+            // 
+            this.CancelButton.BackColor = System.Drawing.Color.LightGray;
+            this.CancelButton.Location = new System.Drawing.Point(418, 52);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(180, 70);
+            this.CancelButton.TabIndex = 24;
+            this.CancelButton.Text = "Cancel";
+            this.CancelButton.UseVisualStyleBackColor = false;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButtont_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(750, 523);
+            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.OrderListBox);
             this.Controls.Add(this.clientAppLabel);
             this.Controls.Add(this.totalSum);
             this.Controls.Add(this.NumPad9);
@@ -259,11 +258,9 @@ namespace COMPortTerminal
             this.Controls.Add(this.NumPad3);
             this.Controls.Add(this.NumPad2);
             this.Controls.Add(this.NumPad1);
-            this.Controls.Add(this.cancelText);
             this.Controls.Add(this.btnOpenOrClosePort);
             this.Controls.Add(this.btnPort);
             this.Controls.Add(this.rtbStatus);
-            this.Controls.Add(this.rtbMonitor);
             this.MaximumSize = new System.Drawing.Size(2000, 2000);
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
@@ -272,14 +269,11 @@ namespace COMPortTerminal
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        } 
-        
-        internal /* TRANSINFO: WithEvents */ System.Windows.Forms.RichTextBox rtbMonitor;
+        }
         internal /* TRANSINFO: WithEvents */ System.Windows.Forms.RichTextBox rtbStatus; 
         internal /* TRANSINFO: WithEvents */ System.Windows.Forms.Button btnPort; 
         internal /* TRANSINFO: WithEvents */ System.Windows.Forms.Button btnOpenOrClosePort;
         internal /* TRANSINFO: WithEvents */ System.Windows.Forms.Timer tmrLookForPortChanges;
-        private Label cancelText;
         private Label NumPad1;
         private Label NumPad2;
         private Label NumPad3;
@@ -290,7 +284,9 @@ namespace COMPortTerminal
         private Label NumPad8;
         private Label NumPad9;
         private Label totalSum;
-        private Label clientAppLabel; 
+        private Label clientAppLabel;
+        internal ListBox OrderListBox;
+        private Button CancelButton; 
         
         
     } 

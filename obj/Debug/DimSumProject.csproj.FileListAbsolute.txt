@@ -31,3 +31,14 @@ C:\Users\Yashou\DimSumProject\obj\Debug\GenerateResource.write.1.tlog
 C:\Users\Yashou\DimSumProject\obj\Debug\COM Port Terminal.exe
 C:\Users\Yashou\DimSumProject\obj\Debug\COM Port Terminal.pdb
 C:\Users\Yashou\DimSumProject\bin\Debug\COM Port Terminal.pdb
+C:\Users\Sam\DimSumProject\bin\Debug\COM Port Terminal.exe.config
+C:\Users\Sam\DimSumProject\obj\Debug\COM Port Terminal.exe
+C:\Users\Sam\DimSumProject\obj\Debug\COM Port Terminal.pdb
+C:\Users\Sam\DimSumProject\bin\Debug\COM Port Terminal.exe
+C:\Users\Sam\DimSumProject\bin\Debug\COM Port Terminal.pdb
+C:\Users\Sam\DimSumProject\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Sam\DimSumProject\obj\Debug\COMPortTerminal.MainForm.resources
+C:\Users\Sam\DimSumProject\obj\Debug\COMPortTerminal.PortSettingsDialog.resources
+C:\Users\Sam\DimSumProject\obj\Debug\COMPortTerminal.Properties.Resources.resources
+C:\Users\Sam\DimSumProject\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\Sam\DimSumProject\obj\Debug\GenerateResource.write.1.tlog

@@ -5,18 +5,19 @@ using System.Text;
 
 namespace COMPortTerminal
 {
-    class DimSumSizes
+    class Order
     {
+        private int orderID;
         public enum eSize { eNull, eSmall, eMedium, eLarge };
         private eSize ds_size;
         private double ds_price;
         private int quantity;
-        private string text;
+        private string sizeString;
 
         //constructor
-        public DimSumSizes() : this(eSize.eNull) { }
-        public DimSumSizes(eSize size) : this(size, 1) { }
-        public DimSumSizes(eSize size, int quantity)
+       //public Order() : this(eSize.eNull) { }
+       // public Order(eSize size) : this(size, 1,) { }
+        public Order(eSize size, int quantity, int orderID)
         {
             this.quantity = quantity;
             ds_size = size;
@@ -24,31 +25,31 @@ namespace COMPortTerminal
             {
                 case eSize.eSmall:
                     ds_price = 1.99;
-                    text = "Small";
+                    sizeString = "Small";
                     break;
                 case eSize.eMedium:
                     ds_price = 2.99;
-                    text = "Medium";
+                    sizeString = "Medium";
                     break;
                 case eSize.eLarge:
                     ds_price = 3.99;
-                    text = "Large";
+                    sizeString = "Large";
                     break;
                 default:
                     ds_price = 0;
-                    text = "Invalid Size";
+                    sizeString = "Invalid Size";
                     break;
             }
         }
         //destructor
-        ~DimSumSizes()
+        ~Order()
         {
             Console.WriteLine("Destroying DimSumClass " + ds_size);
         }
 
         public string getSizeString()
         {
-            return text;
+            return sizeString;
         }
         public eSize getSize()
         {
@@ -56,11 +57,30 @@ namespace COMPortTerminal
         }
         public double getPrice()
         {
-            return ds_price;
+            return ds_price*quantity;
         }
         public int getQuantity()
         {
             return quantity;
+        }
+        public int getOrderID()
+        {
+            return orderID;
+        }
+        public void setQuantity(int newQuantity)
+        {
+            quantity = newQuantity;
+        }
+        public override string ToString()
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append(quantity.ToString());
+            sb.Append("\t");
+            sb.Append(sizeString);
+            sb.Append("\t$");
+            sb.Append(ds_price.ToString());
+            sb.Append(" ea.");
+            return sb.ToString();
         }
     }
 }
