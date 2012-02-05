@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="ComDemo_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\Settings.datasource" />
@@ -67,7 +68,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DimSumSizes.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="ComPorts.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -75,6 +76,7 @@
     <Compile Include="MainForm.designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="OrderList.cs" />
     <Compile Include="PortSettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
